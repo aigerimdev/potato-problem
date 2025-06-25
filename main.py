@@ -11,8 +11,29 @@ class Plant:
 
 
 ##########################################
-#       Add your new classes here!       #
-# (Make sure not to accidentally indent) #
+class Potato(Plant):
+    def __init__(self, starting_energy):
+        super().__init__(starting_energy)
+        self.tubers=[]
+        
+    def sprout_tuber(self):
+        if self.energy >= 30:
+            new_tuber = Tuber()
+            self.tubers.append(new_tuber)
+            self.energy -= 30
+            
+    def absorb_sunlight(self, sunlight_energy):
+        if self.tubers:
+            half = sunlight_energy // 2
+            self.energy += half
+            divided = half // len(self.tubers)
+            for tuber in self.tubers:
+                tuber.energy += divided
+        else:
+            self.energy += sunlight_energy
+class Tuber:
+    def __init__(self, energy=30):
+        self.energy = energy
 ##########################################
 
 
@@ -52,7 +73,7 @@ assert my_potato.energy == 10
 print("Wave 2 passed!")
 
 
-########## WAVE 3 ##########
+# ########## WAVE 3 ##########
 # Checking the behavior for absorbing sunlight for a 
 # potato with multiple tubers
 my_potato.absorb_sunlight(100)
